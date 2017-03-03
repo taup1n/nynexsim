@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=0.8, user-scalable=no" />
+<title>nynex simulator v2017</title>
+<style>
+@font-face {
+    font-family: Neue;
+    src: url("neue.otf") format("opentype");
+}
+
+body {
+	//overflow: hidden;
+}
+
+body, body input, body button, body select, body textarea {
+	background: #f6f6f6;
+    font-family: 'Neue', sans-serif;
+	font-size: 10px;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+#container {
+	position: relative;
+	width: 352px;
+	height: 717px;
+	background-image:url(./iphone7-front-nsim.png);
+}
+
+#imessage {
+	position: relative;
+	left: 0px;
+	top: 152px;
+	width: 302px;
+	height: 430px;
+	overflow: auto;
+}
+
+#sending {
+	position: relative;
+	top: 3px;
+	//left: 50%;
+}
+
+#inputbox {
+	position: absolute;
+	background-color: #fafafa;
+	left: 93px;
+	top: 603px;
+	width: 185px;
+	text-align: right;
+	border: 0px;
+	overflow-x: hidden;
+}
+
+.bubble {
+	box-sizing: border-box;
+	width: auto;
+	max-width: 80%;
+	position: relative;
+	clear: both;
+	border-radius: 25px;
+	padding: 4px 12px;
+}
+
+.send {
+	background-color: blue;
+	border: solid 1px blue;
+	color: white;
+	float: right;
+	text-align: right;
+	left: -5px;
+}
+
+.receive {
+	background-color: #e6e6e6;
+	border: solid 1px #d3d3d3;
+	color: black;
+	float: left;
+	text-align: left;
+	left: 5px;
+}
+
+.nynex-on {
+}
+
+.nynex-off {
+	display: none;
+}
+
+</style>
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+</head>
+
+<body>
+<center><h2>nynex simulator v2017</h2>
+<div id="container"><input type="text" id="inputbox"><div id="imessage">
+                    
+</div></div></center>
+<script>
+var typing = false;
+
+$(document).ready(function(){
+	$('#inputbox').keypress(function (e) {
+	  if (e.which == 13) {
+		$('#imessage').html($('#imessage').html() + "<p class=\"bubble send\">" + $('#inputbox').val() + "</p>");
+		$('#inputbox').val('');
+		var im = document.getElementById('imessage');
+  		imessage.scrollTop = imessage.scrollHeight;
+		if (typing == false) {
+			typing = true;
+			setTimeout(function() { nynex_on() }, 3000);
+		}
+	  }
+	});
+	
+	function nynex_on() {
+		$('#imessage').append("<p class=\"bubble receive nynex-on\"><img src=\"sending.gif\" width=\"35\"/></p>");
+		var im = document.getElementById('imessage');
+  		imessage.scrollTop = imessage.scrollHeight;
+		setTimeout(function() { nynex_off() }, 3000);
+	}
+	
+	function nynex_off() {
+		var nynex = document.getElementsByClassName("nynex-on");
+		nynex[0].className = "bubble receive nynex-off";
+		typing = false;
+	}
+});
+</script>
+</body>
+</html>
